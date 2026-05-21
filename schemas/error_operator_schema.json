@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ErrorOperatorSpec",
+  "type": "object",
+  "required": [
+    "operator_id",
+    "subject",
+    "domain",
+    "description",
+    "preconditions",
+    "divergence_pattern",
+    "verification_requirements"
+  ],
+  "properties": {
+    "operator_id": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "math",
+        "physics"
+      ]
+    },
+    "domain": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "divergence_pattern": {
+      "type": "string"
+    },
+    "verification_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

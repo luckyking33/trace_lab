@@ -1,0 +1,4450 @@
+{
+  "dataset_id": "mechanism_invariant_supplemental_latex_v0_2",
+  "created_for": "mechanism-invariant distractor generation MVP",
+  "schema_version": "0.2",
+  "formula_format": "latex_delimited_strings",
+  "source_policy": "manual_mechanism_only_no_reference",
+  "counts": {
+    "total_items": 30,
+    "by_item_role": {
+      "operator_unit_positive": 10,
+      "operator_unit_negative": 10,
+      "transfer_item": 10
+    },
+    "operator_unit_positive_per_operator": {
+      "ALG_SIGN_MOVE": 2,
+      "ALG_DISTRIBUTIVE_DROP": 2,
+      "ALG_ILLEGAL_CANCEL": 2,
+      "ALG_SQRT_SIGN_DROP": 2,
+      "CALC_CHAIN_RULE_DROP": 2
+    },
+    "operator_unit_negative_per_operator": {
+      "ALG_SIGN_MOVE": 2,
+      "ALG_DISTRIBUTIVE_DROP": 2,
+      "ALG_ILLEGAL_CANCEL": 2,
+      "ALG_SQRT_SIGN_DROP": 2,
+      "CALC_CHAIN_RULE_DROP": 2
+    }
+  },
+  "item_role_definitions": {
+    "operator_unit_positive": "Single-operator item where the target error operator is applicable and produces an executable wrong trace.",
+    "operator_unit_negative": "Negative control where the named operator should not trigger under the stated solution trace.",
+    "transfer_item": "Multi-operator item with two or more applicable error operators and multiple executable wrong traces."
+  },
+  "items": [
+    {
+      "item_id": "MATH_SUP_SIGN_POS_001",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(5x-7=2x+11\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(6\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(5x-7=2x+11\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(5x-7=2x+11\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(3x-7=11\\)",
+          "operation": "subtract \\(2x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(3x=18\\)",
+          "operation": "add \\(7\\) to both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x=6\\)",
+          "operation": "divide both sides by \\(3\\)",
+          "result": "\\(6\\)",
+          "metadata": {
+            "derived_answer": "\\(6\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "equation_side_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_SIGN_POS_001_D1",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{18}{7}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(5x-7=2x+11\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(5x+2x-7=11\\)",
+              "operation": "move \\(2x\\) to the left side but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(7x-7=11\\)",
+              "operation": "combine like terms",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(7x=18\\)",
+              "operation": "add \\(7\\) to both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{18}{7}\\)",
+              "operation": "divide both sides by \\(7\\)",
+              "result": "\\(\\frac{18}{7}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{18}{7}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The variable term \\(2x\\) is transposed without changing sign."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_SIGN_POS_002",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(1.5(x-2)+4=0.5x+7\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(6\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(1.5(x-2)+4=0.5x+7\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(1.5(x-2)+4=0.5x+7\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(1.5x-3+4=0.5x+7\\)",
+          "operation": "distribute \\(1.5\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(1.5x+1=0.5x+7\\)",
+          "operation": "combine constants",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x+1=7\\)",
+          "operation": "subtract \\(0.5x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x=6\\)",
+          "operation": "subtract \\(1\\) from both sides",
+          "result": "\\(6\\)",
+          "metadata": {
+            "derived_answer": "\\(6\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "scale_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_SIGN_POS_002_D1",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(1.5(x-2)+4=0.5x+7\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(1.5x+1=0.5x+7\\)",
+              "operation": "expand and combine constants",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(1.5x+0.5x+1=7\\)",
+              "operation": "move \\(0.5x\\) to the left side but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(2x+1=7\\)",
+              "operation": "combine like terms",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(2x=6\\)",
+              "operation": "subtract \\(1\\) from both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 6,
+              "expr": "\\(x=3\\)",
+              "operation": "divide both sides by \\(2\\)",
+              "result": "\\(3\\)",
+              "metadata": {
+                "derived_answer": "\\(3\\)"
+              }
+            }
+          ],
+          "mechanism_note": "After expansion, the variable term \\(0.5x\\) is moved across the equality sign without sign reversal."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_DIST_POS_001",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(\\frac{3}{2}(x-4)+2=11\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(10\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(\\frac{3}{2}(x-4)+2=11\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{3}{2}(x-4)+2=11\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{3}{2}x-6+2=11\\)",
+          "operation": "distribute \\(\\frac{3}{2}\\) across \\(x-4\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{3}{2}x-4=11\\)",
+          "operation": "combine constants",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(\\frac{3}{2}x=15\\)",
+          "operation": "add \\(4\\) to both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x=10\\)",
+          "operation": "multiply both sides by \\(\\frac{2}{3}\\)",
+          "result": "\\(10\\)",
+          "metadata": {
+            "derived_answer": "\\(10\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "scale_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_DIST_POS_001_D1",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{26}{3}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{3}{2}(x-4)+2=11\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{3}{2}x-4+2=11\\)",
+              "operation": "multiply only \\(x\\) by \\(\\frac{3}{2}\\) and leave \\(-4\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{3}{2}x-2=11\\)",
+              "operation": "combine constants",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{3}{2}x=13\\)",
+              "operation": "add \\(2\\) to both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{26}{3}\\)",
+              "operation": "multiply both sides by \\(\\frac{2}{3}\\)",
+              "result": "\\(\\frac{26}{3}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{26}{3}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The multiplier \\(\\frac{3}{2}\\) is not applied to the constant term \\(-4\\)."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_DIST_POS_002",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(4(2x-1)=3(x+5)\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(\\frac{19}{5}\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(4(2x-1)=3(x+5)\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(4(2x-1)=3(x+5)\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(8x-4=3x+15\\)",
+          "operation": "distribute on both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(5x-4=15\\)",
+          "operation": "subtract \\(3x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(5x=19\\)",
+          "operation": "add \\(4\\) to both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x=\\frac{19}{5}\\)",
+          "operation": "divide both sides by \\(5\\)",
+          "result": "\\(\\frac{19}{5}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{19}{5}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "equation_side_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_DIST_POS_002_D1",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{16}{5}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(4(2x-1)=3(x+5)\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(8x-1=3x+15\\)",
+              "operation": "multiply only \\(2x\\) by \\(4\\) and leave \\(-1\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(5x-1=15\\)",
+              "operation": "subtract \\(3x\\) from both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(5x=16\\)",
+              "operation": "add \\(1\\) to both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{16}{5}\\)",
+              "operation": "divide both sides by \\(5\\)",
+              "result": "\\(\\frac{16}{5}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{16}{5}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The left-side distribution is incomplete while the right-side distribution is performed correctly."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_CANCEL_POS_001",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\(\\frac{4y+9}{4y+3}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\frac{4y+9}{4y+3}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\frac{4y+9}{4y+3}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "y",
+          "domain": "real",
+          "exclude": [
+            "\\(-\\frac{3}{4}\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{4y+9}{4y+3}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{4y+9}{4y+3}\\)",
+          "operation": "check for a common multiplicative factor; none exists",
+          "result": "\\(\\frac{4y+9}{4y+3}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{4y+9}{4y+3}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "target_error_operator_ids": [
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "structure_preserving_rewrite"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_CANCEL_POS_001_D1",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{4y+9}{4y+3}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{9}{3}=3\\)",
+              "operation": "cancel the additive \\(4y\\) terms across numerator and denominator",
+              "result": "\\(3\\)",
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL",
+                "invalid_because": "\\(4y\\) is an additive term, not a common factor"
+              }
+            }
+          ],
+          "mechanism_note": "The trace cancels visually matching additive terms instead of a common factor."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_CANCEL_POS_002",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\(\\frac{2a+6}{a+6}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\frac{2a+6}{a+6}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\frac{2a+6}{a+6}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "a",
+          "domain": "real",
+          "exclude": [
+            "\\(-6\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{2a+6}{a+6}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{2a+6}{a+6}\\)",
+          "operation": "check for a common multiplicative factor; none exists",
+          "result": "\\(\\frac{2a+6}{a+6}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{2a+6}{a+6}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "target_error_operator_ids": [
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "structure_preserving_rewrite"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_CANCEL_POS_002_D1",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(2\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{2a+6}{a+6}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{2a}{a}\\)",
+              "operation": "remove the additive \\(+6\\) terms as if they were factors",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL",
+                "invalid_because": "\\(+6\\) is not a common multiplicative factor"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(2\\)",
+              "operation": "simplify \\(\\frac{2a}{a}\\)",
+              "result": "\\(2\\)",
+              "metadata": {
+                "derived_answer": "\\(2\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The equal-looking constants are cancelled across a sum, producing an invalid simplification."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_SQRT_POS_001",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\((2x+1)^2=25\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(-3\\)",
+          "\\(2\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\((2x+1)^2=25\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\((2x+1)^2=25\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(2x+1=\\pm 5\\)",
+          "operation": "take square roots with both signs",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x\\in\\{-3,2\\}\\)",
+          "operation": "solve both branches",
+          "result": [
+            "\\(-3\\)",
+            "\\(2\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(-3\\)",
+              "\\(2\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "shift_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SQRT_SIGN_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_SQRT_POS_001_D1",
+          "applied_operator_ids": [
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(2\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\((2x+1)^2=25\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x+1=5\\)",
+              "operation": "take only the positive square-root branch",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x=2\\)",
+              "operation": "solve the retained branch",
+              "result": [
+                "\\(2\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(2\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The branch \\(2x+1=-5\\) is omitted."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_SQRT_POS_002",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\(x^2-6x+9=16\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(-1\\)",
+          "\\(7\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(x^2-6x+9=16\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(x^2-6x+9=16\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\((x-3)^2=16\\)",
+          "operation": "recognize the perfect square",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x-3=\\pm 4\\)",
+          "operation": "take square roots with both signs",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x\\in\\{-1,7\\}\\)",
+          "operation": "solve both branches",
+          "result": [
+            "\\(-1\\)",
+            "\\(7\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(-1\\)",
+              "\\(7\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "shift_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SQRT_SIGN_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_SQRT_POS_002_D1",
+          "applied_operator_ids": [
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(7\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(x^2-6x+9=16\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\((x-3)^2=16\\)",
+              "operation": "recognize the perfect square",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x-3=4\\)",
+              "operation": "take only the positive square-root branch",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=7\\)",
+              "operation": "solve the retained branch",
+              "result": [
+                "\\(7\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(7\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "Only the positive branch of the square-root step is retained."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_CHAIN_POS_001",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=\\ln(4x^2+1)\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\frac{8x}{4x^2+1}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=\\ln(4x^2+1)\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=\\ln(4x^2+1)\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{1}{4x^2+1}\\cdot \\frac{d}{dx}(4x^2+1)\\)",
+          "operation": "apply the logarithm rule with the chain rule",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{1}{4x^2+1}\\cdot 8x\\)",
+          "operation": "differentiate the inner function",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{8x}{4x^2+1}\\)",
+          "operation": "simplify",
+          "result": "\\(\\frac{8x}{4x^2+1}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{8x}{4x^2+1}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "CALC_CHAIN_RULE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "CALC_CHAIN_RULE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_CHAIN_POS_001_D1",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(\\frac{1}{4x^2+1}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=\\ln(4x^2+1)\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{dy}{dx}=\\frac{1}{4x^2+1}\\)",
+              "operation": "differentiate the outer logarithm but omit the inner derivative",
+              "result": "\\(\\frac{1}{4x^2+1}\\)",
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP",
+                "derived_answer": "\\(\\frac{1}{4x^2+1}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The multiplicative factor \\(\\frac{d}{dx}(4x^2+1)=8x\\) is dropped."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_CHAIN_POS_002",
+      "item_role": "operator_unit_positive",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=\\sqrt{7x-2}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\frac{7}{2\\sqrt{7x-2}}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=\\sqrt{7x-2}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "condition": "\\(x>\\frac{2}{7}\\)"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=\\sqrt{7x-2}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{1}{2\\sqrt{7x-2}}\\cdot \\frac{d}{dx}(7x-2)\\)",
+          "operation": "apply the square-root derivative with the chain rule",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{1}{2\\sqrt{7x-2}}\\cdot 7\\)",
+          "operation": "differentiate the inner function",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(\\frac{dy}{dx}=\\frac{7}{2\\sqrt{7x-2}}\\)",
+          "operation": "simplify",
+          "result": "\\(\\frac{7}{2\\sqrt{7x-2}}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{7}{2\\sqrt{7x-2}}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "CALC_CHAIN_RULE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "CALC_CHAIN_RULE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_CHAIN_POS_002_D1",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(\\frac{1}{2\\sqrt{7x-2}}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=\\sqrt{7x-2}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{dy}{dx}=\\frac{1}{2\\sqrt{7x-2}}\\)",
+              "operation": "apply the outer square-root derivative but omit the inner derivative",
+              "result": "\\(\\frac{1}{2\\sqrt{7x-2}}\\)",
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP",
+                "derived_answer": "\\(\\frac{1}{2\\sqrt{7x-2}}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The inner derivative \\(\\frac{d}{dx}(7x-2)=7\\) is omitted."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_SIGN_NEG_001",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(4x=20\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(5\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(4x=20\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(4x=20\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x=5\\)",
+          "operation": "divide both sides by \\(4\\)",
+          "result": "\\(5\\)",
+          "metadata": {
+            "derived_answer": "\\(5\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "scale_transform",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_SIGN_MOVE",
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "There is no term moved across the equality sign, so \\(\\mathrm{ALG\\_SIGN\\_MOVE}\\) should not fire."
+    },
+    {
+      "item_id": "MATH_SUP_SIGN_NEG_002",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(-\\frac{2}{3}x=8\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(-12\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(-\\frac{2}{3}x=8\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(-\\frac{2}{3}x=8\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x=-12\\)",
+          "operation": "multiply both sides by \\(-\\frac{3}{2}\\)",
+          "result": "\\(-12\\)",
+          "metadata": {
+            "derived_answer": "\\(-12\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "scale_transform",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_SIGN_MOVE",
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "A negative coefficient is handled by multiplication/division, not by transposition of an additive term."
+    },
+    {
+      "item_id": "MATH_SUP_DIST_NEG_001",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(3x+12=21\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(3\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(3x+12=21\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(3x+12=21\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(3x=9\\)",
+          "operation": "subtract \\(12\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x=3\\)",
+          "operation": "divide both sides by \\(3\\)",
+          "result": "\\(3\\)",
+          "metadata": {
+            "derived_answer": "\\(3\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_DISTRIBUTIVE_DROP",
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "The expression is already expanded and contains no product over a parenthesized sum."
+    },
+    {
+      "item_id": "MATH_SUP_DIST_NEG_002",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\((x+4)+3\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(x+7\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\((x+4)+3\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\((x+4)+3\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x+7\\)",
+          "operation": "combine constants inside an associative sum",
+          "result": "\\(x+7\\)",
+          "metadata": {
+            "derived_answer": "\\(x+7\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_DISTRIBUTIVE_DROP",
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "Parentheses are present, but there is no external multiplier to distribute."
+    },
+    {
+      "item_id": "MATH_SUP_CANCEL_NEG_001",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\(\\frac{(x-2)(x+5)}{x-2}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(x+5\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\frac{(x-2)(x+5)}{x-2}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(2\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{(x-2)(x+5)}{x-2}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x+5\\)",
+          "operation": "cancel the common multiplicative factor \\(x-2\\)",
+          "result": "\\(x+5\\)",
+          "metadata": {
+            "derived_answer": "\\(x+5\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_ILLEGAL_CANCEL",
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "The cancellation is legal because \\(x-2\\) is a common factor, not an additive term."
+    },
+    {
+      "item_id": "MATH_SUP_CANCEL_NEG_002",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\(\\frac{6x^2}{3x}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(2x\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\frac{6x^2}{3x}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(0\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{6x^2}{3x}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(2x\\)",
+          "operation": "cancel the common factor \\(3x\\)",
+          "result": "\\(2x\\)",
+          "metadata": {
+            "derived_answer": "\\(2x\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_ILLEGAL_CANCEL",
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "This is a legal monomial factor cancellation, so it should not be labeled as illegal cancellation."
+    },
+    {
+      "item_id": "MATH_SUP_SQRT_NEG_001",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Evaluate: \\(\\sqrt{64}\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(8\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\sqrt{64}\\)"
+        }
+      ],
+      "constraints": [],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\sqrt{64}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(8\\)",
+          "operation": "evaluate the principal square root",
+          "result": "\\(8\\)",
+          "metadata": {
+            "derived_answer": "\\(8\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_SQRT_SIGN_DROP",
+      "operator_applicability": {
+        "ALG_SQRT_SIGN_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "The radical symbol \\(\\sqrt{\\cdot}\\) denotes the principal square root, so no negative branch is expected."
+    },
+    {
+      "item_id": "MATH_SUP_SQRT_NEG_002",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\((x-1)^2=0\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(1\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\((x-1)^2=0\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\((x-1)^2=0\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x-1=0\\)",
+          "operation": "take square roots; \\(\\pm0\\) gives the same branch",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x=1\\)",
+          "operation": "solve",
+          "result": [
+            "\\(1\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(1\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "ALG_SQRT_SIGN_DROP",
+      "operator_applicability": {
+        "ALG_SQRT_SIGN_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "There is only one distinct solution because the square-root branch value is \\(0\\)."
+    },
+    {
+      "item_id": "MATH_SUP_CHAIN_NEG_001",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=x^5\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(5x^4\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=x^5\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=x^5\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{dy}{dx}=5x^4\\)",
+          "operation": "apply the power rule",
+          "result": "\\(5x^4\\)",
+          "metadata": {
+            "derived_answer": "\\(5x^4\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "CALC_CHAIN_RULE_DROP",
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "There is no nontrivial inner function whose derivative could be dropped."
+    },
+    {
+      "item_id": "MATH_SUP_CHAIN_NEG_002",
+      "item_role": "operator_unit_negative",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=\\sin x\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\cos x\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=\\sin x\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=\\sin x\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{dy}{dx}=\\cos x\\)",
+          "operation": "differentiate sine",
+          "result": "\\(\\cos x\\)",
+          "metadata": {
+            "derived_answer": "\\(\\cos x\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [],
+      "target_error_operator_ids": [],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "negative_control_for_operator_id": "CALC_CHAIN_RULE_DROP",
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": false
+      },
+      "distractor_set": [],
+      "negative_control_note": "The inner function is the identity \\(x\\), whose derivative is \\(1\\); there is no observable chain-factor omission."
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_001",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(2(x+3)-5=x+9\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(8\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(2(x+3)-5=x+9\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(2(x+3)-5=x+9\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(2x+6-5=x+9\\)",
+          "operation": "distribute \\(2\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(2x+1=x+9\\)",
+          "operation": "combine constants",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x+1=9\\)",
+          "operation": "subtract \\(x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x=8\\)",
+          "operation": "subtract \\(1\\) from both sides",
+          "result": "\\(8\\)",
+          "metadata": {
+            "derived_answer": "\\(8\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "equation_side_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": true,
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_001_D1",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(11\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x+3)-5=x+9\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x+3-5=x+9\\)",
+              "operation": "distribute \\(2\\) only to \\(x\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(2x-2=x+9\\)",
+              "operation": "combine constants",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x-2=9\\)",
+              "operation": "subtract \\(x\\) from both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=11\\)",
+              "operation": "add \\(2\\) to both sides",
+              "result": "\\(11\\)",
+              "metadata": {
+                "derived_answer": "\\(11\\)"
+              }
+            }
+          ],
+          "mechanism_note": "Distribution is dropped on the constant inside the parentheses."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_001_D2",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{8}{3}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x+3)-5=x+9\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x+1=x+9\\)",
+              "operation": "correctly expand and combine",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(2x+x+1=9\\)",
+              "operation": "move \\(x\\) to the left but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(3x+1=9\\)",
+              "operation": "combine like terms",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{8}{3}\\)",
+              "operation": "solve",
+              "result": "\\(\\frac{8}{3}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{8}{3}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The variable term on the right is moved without sign reversal."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_001_D3",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP",
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{11}{3}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x+3)-5=x+9\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x+3-5=x+9\\)",
+              "operation": "drop distribution on \\(+3\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(2x-2=x+9\\)",
+              "operation": "combine constants",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(2x+x-2=9\\)",
+              "operation": "move \\(x\\) left but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(3x-2=9\\)",
+              "operation": "combine like terms",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 6,
+              "expr": "\\(x=\\frac{11}{3}\\)",
+              "operation": "solve",
+              "result": "\\(\\frac{11}{3}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{11}{3}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "A sequential path combines dropped distribution and sign-preserving transposition."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_002",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\((x-1)^2+3=28\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(-4\\)",
+          "\\(6\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\((x-1)^2+3=28\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\((x-1)^2+3=28\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\((x-1)^2=25\\)",
+          "operation": "subtract \\(3\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x-1=\\pm5\\)",
+          "operation": "take square roots with both signs",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x\\in\\{-4,6\\}\\)",
+          "operation": "solve both branches",
+          "result": [
+            "\\(-4\\)",
+            "\\(6\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(-4\\)",
+              "\\(6\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SIGN_MOVE",
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SIGN_MOVE",
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "shift_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": true,
+        "ALG_SQRT_SIGN_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_002_D1",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(1-\\sqrt{31}\\)",
+              "\\(1+\\sqrt{31}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\((x-1)^2+3=28\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\((x-1)^2=28+3=31\\)",
+              "operation": "move \\(+3\\) to the right but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x-1=\\pm\\sqrt{31}\\)",
+              "operation": "take square roots with both signs",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x\\in\\{1-\\sqrt{31},1+\\sqrt{31}\\}\\)",
+              "operation": "solve",
+              "result": [
+                "\\(1-\\sqrt{31}\\)",
+                "\\(1+\\sqrt{31}\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(1-\\sqrt{31}\\)",
+                  "\\(1+\\sqrt{31}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The constant \\(+3\\) is transposed with the wrong sign."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_002_D2",
+          "applied_operator_ids": [
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(6\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\((x-1)^2+3=28\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\((x-1)^2=25\\)",
+              "operation": "subtract \\(3\\) from both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x-1=5\\)",
+              "operation": "take only the positive square-root branch",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=6\\)",
+              "operation": "solve",
+              "result": [
+                "\\(6\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(6\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The negative branch \\(x-1=-5\\) is omitted."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_002_D3",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE",
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(1+\\sqrt{31}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\((x-1)^2+3=28\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\((x-1)^2=31\\)",
+              "operation": "move \\(+3\\) to the right but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x-1=\\sqrt{31}\\)",
+              "operation": "take only the positive square-root branch",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=1+\\sqrt{31}\\)",
+              "operation": "solve",
+              "result": [
+                "\\(1+\\sqrt{31}\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(1+\\sqrt{31}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The trace combines sign-preserving transposition with square-root branch omission."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_003",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\(2(x^2-4)=32\\).",
+      "correct_answer": {
+        "type": "set_symbolic",
+        "value": [
+          "\\(-2\\sqrt{5}\\)",
+          "\\(2\\sqrt{5}\\)"
+        ]
+      },
+      "answer_type": "set_symbolic",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(2(x^2-4)=32\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(2(x^2-4)=32\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(2x^2-8=32\\)",
+          "operation": "distribute \\(2\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(2x^2=40\\)",
+          "operation": "add \\(8\\) to both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x^2=20\\)",
+          "operation": "divide by \\(2\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x=\\pm 2\\sqrt{5}\\)",
+          "operation": "take square roots with both signs",
+          "result": [
+            "\\(-2\\sqrt{5}\\)",
+            "\\(2\\sqrt{5}\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(-2\\sqrt{5}\\)",
+              "\\(2\\sqrt{5}\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SQRT_SIGN_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "scale_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": true,
+        "ALG_SQRT_SIGN_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_003_D1",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(-3\\sqrt{2}\\)",
+              "\\(3\\sqrt{2}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x^2-4)=32\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x^2-4=32\\)",
+              "operation": "multiply only \\(x^2\\) by \\(2\\) and leave \\(-4\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(2x^2=36\\)",
+              "operation": "add \\(4\\) to both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x^2=18\\)",
+              "operation": "divide by \\(2\\)",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\pm3\\sqrt{2}\\)",
+              "operation": "take square roots with both signs",
+              "result": [
+                "\\(-3\\sqrt{2}\\)",
+                "\\(3\\sqrt{2}\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(-3\\sqrt{2}\\)",
+                  "\\(3\\sqrt{2}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The multiplier \\(2\\) is not distributed to the constant \\(-4\\)."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_003_D2",
+          "applied_operator_ids": [
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(2\\sqrt{5}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x^2-4)=32\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(x^2=20\\)",
+              "operation": "correctly simplify to the squared equation",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x=2\\sqrt{5}\\)",
+              "operation": "take only the positive square-root branch",
+              "result": [
+                "\\(2\\sqrt{5}\\)"
+              ],
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP",
+                "derived_answer": [
+                  "\\(2\\sqrt{5}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The negative square-root branch is omitted."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_003_D3",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP",
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(3\\sqrt{2}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(2(x^2-4)=32\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(2x^2-4=32\\)",
+              "operation": "drop distribution on the constant",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x^2=18\\)",
+              "operation": "simplify",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=3\\sqrt{2}\\)",
+              "operation": "take only the positive square-root branch",
+              "result": [
+                "\\(3\\sqrt{2}\\)"
+              ],
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP",
+                "derived_answer": [
+                  "\\(3\\sqrt{2}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The trace first drops distribution and then omits the negative root."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_004",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve for \\(x\\): \\(\\frac{x+6}{x+2}=3\\), with \\(x\\neq -2\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(0\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(\\frac{x+6}{x+2}=3\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(-2\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{x+6}{x+2}=3\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x+6=3(x+2)\\)",
+          "operation": "multiply both sides by \\(x+2\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x+6=3x+6\\)",
+          "operation": "distribute \\(3\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x=3x\\)",
+          "operation": "subtract \\(6\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(-2x=0\\)",
+          "operation": "subtract \\(3x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 6,
+          "expr": "\\(x=0\\)",
+          "operation": "solve",
+          "result": "\\(0\\)",
+          "metadata": {
+            "derived_answer": "\\(0\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_ILLEGAL_CANCEL",
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "ALG_ILLEGAL_CANCEL",
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "structure_preserving_rewrite"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": true,
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_004_D1",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "set_condition",
+            "value": "\\(x\\in\\mathbb{R}\\setminus\\{-2\\}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{x+6}{x+2}=3\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{6}{2}=3\\)",
+              "operation": "cancel the additive \\(x\\) terms across numerator and denominator",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(3=3\\)",
+              "operation": "obtain an identity",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x\\in\\mathbb{R}\\setminus\\{-2\\}\\)",
+              "operation": "report all allowed real values",
+              "result": "\\(x\\in\\mathbb{R}\\setminus\\{-2\\}\\)",
+              "metadata": {
+                "derived_answer": "\\(x\\in\\mathbb{R}\\setminus\\{-2\\}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The expression is treated as if the additive \\(x\\) terms were cancellable factors."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_004_D2",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(-6\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{x+6}{x+2}=3\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(x+6=3x+6\\)",
+              "operation": "correctly clear denominator and distribute",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x=3x+6+6\\)",
+              "operation": "move \\(+6\\) from the left to the right but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=3x+12\\)",
+              "operation": "combine constants",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(-2x=12\\)",
+              "operation": "subtract \\(3x\\) from both sides",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 6,
+              "expr": "\\(x=-6\\)",
+              "operation": "solve",
+              "result": "\\(-6\\)",
+              "metadata": {
+                "derived_answer": "\\(-6\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The constant \\(+6\\) is moved across the equality without sign reversal."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_005",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Simplify: \\(\\frac{3(x+2)+4}{3x+2}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(\\frac{3x+10}{3x+2}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "expression",
+          "value": "\\(\\frac{3(x+2)+4}{3x+2}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(-\\frac{2}{3}\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{3(x+2)+4}{3x+2}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{3x+6+4}{3x+2}\\)",
+          "operation": "distribute \\(3\\) in the numerator",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{3x+10}{3x+2}\\)",
+          "operation": "combine constants; no common factor exists",
+          "result": "\\(\\frac{3x+10}{3x+2}\\)",
+          "metadata": {
+            "derived_answer": "\\(\\frac{3x+10}{3x+2}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "target_error_operator_ids": [
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "structure_preserving_rewrite"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_DISTRIBUTIVE_DROP": true,
+        "ALG_ILLEGAL_CANCEL": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_005_D1",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(\\frac{3x+6}{3x+2}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{3(x+2)+4}{3x+2}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{3x+2+4}{3x+2}\\)",
+              "operation": "multiply only \\(x\\) by \\(3\\) and leave \\(+2\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{3x+6}{3x+2}\\)",
+              "operation": "combine constants",
+              "result": "\\(\\frac{3x+6}{3x+2}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{3x+6}{3x+2}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "Distribution is incomplete in the numerator."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_005_D2",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(5\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{3(x+2)+4}{3x+2}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{3x+10}{3x+2}\\)",
+              "operation": "correctly expand",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{10}{2}=5\\)",
+              "operation": "cancel the additive \\(3x\\) terms",
+              "result": "\\(5\\)",
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL",
+                "derived_answer": "\\(5\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The additive \\(3x\\) terms are cancelled as if they were factors."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_005_D3",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP",
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{3(x+2)+4}{3x+2}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{3x+6}{3x+2}\\)",
+              "operation": "drop distribution on \\(+2\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{6}{2}=3\\)",
+              "operation": "cancel the additive \\(3x\\) terms",
+              "result": "\\(3\\)",
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL",
+                "derived_answer": "\\(3\\)"
+              }
+            }
+          ],
+          "mechanism_note": "A sequential path first drops distribution and then cancels additive terms illegally."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_006",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=(3x-2)^2+5x\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(18x-7\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=(3x-2)^2+5x\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=(3x-2)^2+5x\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(\\frac{dy}{dx}=2(3x-2)\\cdot3+5\\)",
+          "operation": "apply power rule with the chain rule",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{dy}{dx}=6(3x-2)+5\\)",
+          "operation": "simplify the chain factor",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(\\frac{dy}{dx}=18x-12+5\\)",
+          "operation": "distribute \\(6\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(\\frac{dy}{dx}=18x-7\\)",
+          "operation": "combine constants",
+          "result": "\\(18x-7\\)",
+          "metadata": {
+            "derived_answer": "\\(18x-7\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": true,
+        "ALG_DISTRIBUTIVE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_006_D1",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(6x+1\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=(3x-2)^2+5x\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{dy}{dx}=2(3x-2)+5\\)",
+              "operation": "apply the outer power rule but omit \\(frac{d}{dx}(3x-2)\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{dy}{dx}=6x-4+5\\)",
+              "operation": "distribute \\(2\\)",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{dy}{dx}=6x+1\\)",
+              "operation": "combine constants",
+              "result": "\\(6x+1\\)",
+              "metadata": {
+                "derived_answer": "\\(6x+1\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The inner derivative factor \\(3\\) is omitted."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_006_D2",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(18x+3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=(3x-2)^2+5x\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{dy}{dx}=6(3x-2)+5\\)",
+              "operation": "correctly apply the chain rule",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{dy}{dx}=18x-2+5\\)",
+              "operation": "multiply only \\(3x\\) by \\(6\\) and leave \\(-2\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{dy}{dx}=18x+3\\)",
+              "operation": "combine constants",
+              "result": "\\(18x+3\\)",
+              "metadata": {
+                "derived_answer": "\\(18x+3\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The algebraic simplification after differentiation drops part of a distribution."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_006_D3",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP",
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(6x+3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=(3x-2)^2+5x\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(\\frac{dy}{dx}=2(3x-2)+5\\)",
+              "operation": "omit the inner derivative factor",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{dy}{dx}=6x-2+5\\)",
+              "operation": "drop distribution on \\(-2\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{dy}{dx}=6x+3\\)",
+              "operation": "combine constants",
+              "result": "\\(6x+3\\)",
+              "metadata": {
+                "derived_answer": "\\(6x+3\\)"
+              }
+            }
+          ],
+          "mechanism_note": "Both the chain factor and part of the subsequent distribution are omitted."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_007",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Find the critical point of \\(f(x)=(2x-3)^2+4x\\).",
+      "correct_answer": {
+        "type": "numeric",
+        "value": "\\(1\\)"
+      },
+      "answer_type": "numeric",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(f(x)=(2x-3)^2+4x\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(f(x)=(2x-3)^2+4x\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(f'(x)=2(2x-3)\\cdot2+4\\)",
+          "operation": "differentiate with the chain rule",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(f'(x)=4(2x-3)+4\\)",
+          "operation": "simplify",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(f'(x)=8x-12+4=8x-8\\)",
+          "operation": "distribute and combine",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(8x-8=0\\)",
+          "operation": "set derivative equal to zero",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 6,
+          "expr": "\\(8x=8\\)",
+          "operation": "add \\(8\\) to both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 7,
+          "expr": "\\(x=1\\)",
+          "operation": "solve",
+          "result": "\\(1\\)",
+          "metadata": {
+            "derived_answer": "\\(1\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_DISTRIBUTIVE_DROP",
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": true,
+        "ALG_DISTRIBUTIVE_DROP": true,
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_007_D1",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(\\frac{1}{2}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(f(x)=(2x-3)^2+4x\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(f'(x)=2(2x-3)+4\\)",
+              "operation": "omit the inner derivative factor \\(2\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(f'(x)=4x-6+4=4x-2\\)",
+              "operation": "simplify",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(4x-2=0\\)",
+              "operation": "set derivative equal to zero",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{1}{2}\\)",
+              "operation": "solve",
+              "result": "\\(\\frac{1}{2}\\)",
+              "metadata": {
+                "derived_answer": "\\(\\frac{1}{2}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The derivative of the inner linear term \\(2x-3\\) is omitted."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_007_D2",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(-\\frac{1}{8}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(f(x)=(2x-3)^2+4x\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(f'(x)=4(2x-3)+4\\)",
+              "operation": "correctly differentiate",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(f'(x)=8x-3+4=8x+1\\)",
+              "operation": "multiply only \\(2x\\) by \\(4\\) and leave \\(-3\\) unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(8x+1=0\\)",
+              "operation": "set derivative equal to zero",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=-\\frac{1}{8}\\)",
+              "operation": "solve",
+              "result": "\\(-\\frac{1}{8}\\)",
+              "metadata": {
+                "derived_answer": "\\(-\\frac{1}{8}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The distribution error occurs during derivative simplification."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_007_D3",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "numeric",
+            "value": "\\(-1\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(f'(x)=8x-8\\)",
+              "operation": "from the correct derivative",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(8x-8=0\\)",
+              "operation": "set derivative equal to zero",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(8x=-8\\)",
+              "operation": "move \\(-8\\) to the right but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=-1\\)",
+              "operation": "solve",
+              "result": "\\(-1\\)",
+              "metadata": {
+                "derived_answer": "\\(-1\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The constant term in the critical-point equation is transposed without sign reversal."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_008",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\(\\frac{x^2+5}{x}=6\\), with \\(x\\neq0\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(1\\)",
+          "\\(5\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(\\frac{x^2+5}{x}=6\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(0\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(\\frac{x^2+5}{x}=6\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(x^2+5=6x\\)",
+          "operation": "multiply both sides by \\(x\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(x^2-6x+5=0\\)",
+          "operation": "subtract \\(6x\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\((x-1)(x-5)=0\\)",
+          "operation": "factor",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x\\in\\{1,5\\}\\)",
+          "operation": "solve",
+          "result": [
+            "\\(1\\)",
+            "\\(5\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(1\\)",
+              "\\(5\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_ILLEGAL_CANCEL",
+        "ALG_SIGN_MOVE"
+      ],
+      "target_error_operator_ids": [
+        "ALG_ILLEGAL_CANCEL",
+        "ALG_SIGN_MOVE"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "structure_preserving_rewrite"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_ILLEGAL_CANCEL": true,
+        "ALG_SIGN_MOVE": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_008_D1",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(1\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{x^2+5}{x}=6\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(x+5=6\\)",
+              "operation": "cancel \\(x\\) from \\(x^2\\) and drop the denominator on the additive \\(+5\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x=1\\)",
+              "operation": "solve",
+              "result": [
+                "\\(1\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(1\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The numerator sum is not divided termwise correctly; the additive constant is treated as if the denominator vanished."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_008_D2",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(-5\\)",
+              "\\(-1\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(\\frac{x^2+5}{x}=6\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(x^2+5=6x\\)",
+              "operation": "correctly clear the denominator",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x^2+6x+5=0\\)",
+              "operation": "move \\(6x\\) to the left but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\((x+1)(x+5)=0\\)",
+              "operation": "factor",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x\\in\\{-5,-1\\}\\)",
+              "operation": "solve",
+              "result": [
+                "\\(-5\\)",
+                "\\(-1\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(-5\\)",
+                  "\\(-1\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The right-side variable term is transposed with the wrong sign."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_009",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "algebra",
+      "question": "Solve over the real numbers: \\(3(x-2)^2+6=33\\).",
+      "correct_answer": {
+        "type": "set_numeric",
+        "value": [
+          "\\(-1\\)",
+          "\\(5\\)"
+        ]
+      },
+      "answer_type": "set_numeric",
+      "givens": [
+        {
+          "symbol": "equation",
+          "value": "\\(3(x-2)^2+6=33\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real"
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(3(x-2)^2+6=33\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(3(x-2)^2=27\\)",
+          "operation": "subtract \\(6\\) from both sides",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\((x-2)^2=9\\)",
+          "operation": "divide by \\(3\\)",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(x-2=\\pm3\\)",
+          "operation": "take square roots with both signs",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(x\\in\\{-1,5\\}\\)",
+          "operation": "solve",
+          "result": [
+            "\\(-1\\)",
+            "\\(5\\)"
+          ],
+          "metadata": {
+            "derived_answer": [
+              "\\(-1\\)",
+              "\\(5\\)"
+            ]
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "ALG_SIGN_MOVE",
+        "ALG_SQRT_SIGN_DROP",
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "target_error_operator_ids": [
+        "ALG_SIGN_MOVE",
+        "ALG_SQRT_SIGN_DROP",
+        "ALG_DISTRIBUTIVE_DROP"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "shift_transform"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "ALG_SIGN_MOVE": true,
+        "ALG_SQRT_SIGN_DROP": true,
+        "ALG_DISTRIBUTIVE_DROP": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_009_D1",
+          "applied_operator_ids": [
+            "ALG_SIGN_MOVE"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(2-\\sqrt{13}\\)",
+              "\\(2+\\sqrt{13}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(3(x-2)^2+6=33\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(3(x-2)^2=33+6=39\\)",
+              "operation": "move \\(+6\\) to the right but keep its sign",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SIGN_MOVE"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\((x-2)^2=13\\)",
+              "operation": "divide by \\(3\\)",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=2\\pm\\sqrt{13}\\)",
+              "operation": "take square roots with both signs",
+              "result": [
+                "\\(2-\\sqrt{13}\\)",
+                "\\(2+\\sqrt{13}\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(2-\\sqrt{13}\\)",
+                  "\\(2+\\sqrt{13}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The constant \\(+6\\) is moved across the equality without changing sign."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_009_D2",
+          "applied_operator_ids": [
+            "ALG_SQRT_SIGN_DROP"
+          ],
+          "answer": {
+            "type": "set_numeric",
+            "value": [
+              "\\(5\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(3(x-2)^2+6=33\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\((x-2)^2=9\\)",
+              "operation": "correctly isolate the square",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(x-2=3\\)",
+              "operation": "take only the positive square-root branch",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_SQRT_SIGN_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(x=5\\)",
+              "operation": "solve",
+              "result": [
+                "\\(5\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(5\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The negative root branch is omitted."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_009_D3",
+          "applied_operator_ids": [
+            "ALG_DISTRIBUTIVE_DROP"
+          ],
+          "answer": {
+            "type": "set_symbolic",
+            "value": [
+              "\\(\\frac{2-\\sqrt{73}}{3}\\)",
+              "\\(\\frac{2+\\sqrt{73}}{3}\\)"
+            ]
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(3(x-2)^2+6=33\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(3(x^2-4x+4)+6=33\\)",
+              "operation": "expand the square",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(3x^2-4x+4+6=33\\)",
+              "operation": "multiply only \\(x^2\\) by \\(3\\) and leave the other terms unchanged",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_DISTRIBUTIVE_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(3x^2-4x-23=0\\)",
+              "operation": "simplify",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 5,
+              "expr": "\\(x=\\frac{2\\pm\\sqrt{73}}{3}\\)",
+              "operation": "solve the quadratic",
+              "result": [
+                "\\(\\frac{2-\\sqrt{73}}{3}\\)",
+                "\\(\\frac{2+\\sqrt{73}}{3}\\)"
+              ],
+              "metadata": {
+                "derived_answer": [
+                  "\\(\\frac{2-\\sqrt{73}}{3}\\)",
+                  "\\(\\frac{2+\\sqrt{73}}{3}\\)"
+                ]
+              }
+            }
+          ],
+          "mechanism_note": "The coefficient \\(3\\) is distributed only to the first term of the expanded square."
+        }
+      ]
+    },
+    {
+      "item_id": "MATH_SUP_TRANS_010",
+      "item_role": "transfer_item",
+      "source": "manual_mechanism_only_no_reference",
+      "subject": "math",
+      "domain": "calculus",
+      "question": "Differentiate with respect to \\(x\\): \\(y=\\frac{(3x+1)^2+5}{3x+1}\\).",
+      "correct_answer": {
+        "type": "symbolic",
+        "value": "\\(3-\\frac{15}{(3x+1)^2}\\)"
+      },
+      "answer_type": "symbolic",
+      "givens": [
+        {
+          "symbol": "function",
+          "value": "\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)"
+        }
+      ],
+      "constraints": [
+        {
+          "var": "x",
+          "domain": "real",
+          "exclude": [
+            "\\(-\\frac{1}{3}\\)"
+          ]
+        }
+      ],
+      "solution_trace": [
+        {
+          "step_id": 1,
+          "expr": "\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)",
+          "operation": "given",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 2,
+          "expr": "\\(u=3x+1,\\quad y=u+\\frac{5}{u}\\)",
+          "operation": "set \\(u=3x+1\\) and split the fraction correctly",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 3,
+          "expr": "\\(\\frac{dy}{dx}=\\left(1-\\frac{5}{u^2}\\right)\\frac{du}{dx}\\)",
+          "operation": "differentiate with the chain rule",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 4,
+          "expr": "\\(\\frac{du}{dx}=3\\)",
+          "operation": "differentiate the inner function",
+          "result": null,
+          "metadata": {}
+        },
+        {
+          "step_id": 5,
+          "expr": "\\(\\frac{dy}{dx}=3-\\frac{15}{(3x+1)^2}\\)",
+          "operation": "substitute and simplify",
+          "result": "\\(3-\\frac{15}{(3x+1)^2}\\)",
+          "metadata": {
+            "derived_answer": "\\(3-\\frac{15}{(3x+1)^2}\\)"
+          }
+        }
+      ],
+      "allowed_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "target_error_operator_ids": [
+        "CALC_CHAIN_RULE_DROP",
+        "ALG_ILLEGAL_CANCEL"
+      ],
+      "counterfactual_transforms": [
+        "variable_renaming",
+        "numeric_perturbation",
+        "function_family_swap"
+      ],
+      "data_access_mode": "mechanism_only",
+      "leakage_flags": {
+        "original_distractors_removed": true,
+        "human_response_dist_removed": true,
+        "seed_candidates_removed": true
+      },
+      "leakage_audit": {
+        "used_human_response_dist": false,
+        "used_seed_candidates": false,
+        "used_original_distractors": false,
+        "forbidden_key_scan_passed": true,
+        "canary_scan_passed": true
+      },
+      "operator_applicability": {
+        "CALC_CHAIN_RULE_DROP": true,
+        "ALG_ILLEGAL_CANCEL": true
+      },
+      "distractor_set": [
+        {
+          "distractor_id": "MATH_SUP_TRANS_010_D1",
+          "applied_operator_ids": [
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(1-\\frac{5}{(3x+1)^2}\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(u=3x+1,\\quad y=u+\\frac{5}{u}\\)",
+              "operation": "correctly rewrite",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{dy}{dx}=1-\\frac{5}{u^2}\\)",
+              "operation": "differentiate with respect to \\(u\\) but omit \\(frac{du}{dx}\\)",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP"
+              }
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{dy}{dx}=1-\\frac{5}{(3x+1)^2}\\)",
+              "operation": "substitute \\(u=3x+1\\)",
+              "result": "\\(1-\\frac{5}{(3x+1)^2}\\)",
+              "metadata": {
+                "derived_answer": "\\(1-\\frac{5}{(3x+1)^2}\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The derivative with respect to \\(u\\) is not multiplied by \\(\\frac{du}{dx}=3\\)."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_010_D2",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(3\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(y=(3x+1)+5\\)",
+              "operation": "cancel \\(3x+1\\) from only part of a sum",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL",
+                "invalid_because": "\\(3x+1\\) is not a common factor of the entire numerator"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(y=3x+6\\)",
+              "operation": "simplify",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 4,
+              "expr": "\\(\\frac{dy}{dx}=3\\)",
+              "operation": "differentiate",
+              "result": "\\(3\\)",
+              "metadata": {
+                "derived_answer": "\\(3\\)"
+              }
+            }
+          ],
+          "mechanism_note": "A non-common factor is cancelled from a numerator sum before differentiating."
+        },
+        {
+          "distractor_id": "MATH_SUP_TRANS_010_D3",
+          "applied_operator_ids": [
+            "ALG_ILLEGAL_CANCEL",
+            "CALC_CHAIN_RULE_DROP"
+          ],
+          "answer": {
+            "type": "symbolic",
+            "value": "\\(1\\)"
+          },
+          "wrong_solution_trace": [
+            {
+              "step_id": 1,
+              "expr": "\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)",
+              "operation": "given",
+              "result": null,
+              "metadata": {}
+            },
+            {
+              "step_id": 2,
+              "expr": "\\(y=(3x+1)+5\\)",
+              "operation": "illegally cancel within a sum",
+              "result": null,
+              "metadata": {
+                "error_operator_id": "ALG_ILLEGAL_CANCEL"
+              }
+            },
+            {
+              "step_id": 3,
+              "expr": "\\(\\frac{dy}{dx}=1\\)",
+              "operation": "differentiate \\((3x+1)\\) as if \\(\\frac{d}{dx}(3x+1)=1\\)",
+              "result": "\\(1\\)",
+              "metadata": {
+                "error_operator_id": "CALC_CHAIN_RULE_DROP",
+                "derived_answer": "\\(1\\)"
+              }
+            }
+          ],
+          "mechanism_note": "The path combines illegal cancellation with omission of the inner derivative factor."
+        }
+      ]
+    }
+  ]
+}

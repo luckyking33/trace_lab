@@ -1,0 +1,7 @@
+{
+  "dataset_id": "ds_63cf6fb26ccc",
+  "record_index": 2,
+  "field_name": "problem",
+  "source_hash": "70f1a5ac377177d6",
+  "translation_zh": "多项式 $(4 +5x^3 +100 +2\\pi x^4 + \\sqrt{10}x^4 +9)$ 的次数是多少？"
+}

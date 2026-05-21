@@ -1,0 +1,3 @@
+annotation_id,item_id,phase,question,correct_answer,candidate_option,operator_id,wrong_trace_json,verification_json,method_hidden,target_student_level
+ANN_0001,MATH_ALG_001,option_only,"Solve for x: 3x - 5 = 16.","7","x = 11/3",,,,,"middle_school"
+ANN_0002,MATH_ALG_001,trace_exposed,"Solve for x: 3x - 5 = 16.","7","x = 11/3","ALG_SIGN_MOVE","[]","{}",,"middle_school"

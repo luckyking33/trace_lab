@@ -1,0 +1,9 @@
+idea.md
+Plan.md
+TODO.md
+.venv-wsl/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.egg-info/
+outputs/

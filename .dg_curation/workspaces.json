@@ -1,0 +1,33 @@
+{
+  "workspaces": [
+    {
+      "workspace_id": "ws_d6469860ea7e",
+      "workspace_name": "MVP Curation",
+      "loaded_input_datasets": [
+        {
+          "dataset_id": "ds_63cf6fb26ccc",
+          "path": "data/competition_math/train/data-00000-of-00001.arrow",
+          "format": "huggingface_arrow",
+          "num_rows": 12500,
+          "fields": [
+            "problem",
+            "level",
+            "type",
+            "solution"
+          ],
+          "field_types": {
+            "problem": "Value('string')",
+            "level": "Value('string')",
+            "type": "Value('string')",
+            "solution": "Value('string')"
+          }
+        }
+      ],
+      "active_dataset_id": "ds_63cf6fb26ccc",
+      "output_directory": "data",
+      "output_filename": "mechanism_toy_50.jsonl",
+      "last_viewed_record_index": 1,
+      "editor_draft_state": {}
+    }
+  ]
+}

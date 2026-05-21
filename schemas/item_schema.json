@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MechanismInvariantDGItem",
+  "type": "object",
+  "required": [
+    "item_id",
+    "subject",
+    "domain",
+    "question",
+    "correct_answer",
+    "answer_type",
+    "givens",
+    "constraints",
+    "solution_trace",
+    "allowed_operator_ids",
+    "counterfactual_transforms",
+    "leakage_flags"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "math",
+        "physics"
+      ]
+    },
+    "domain": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string"
+    },
+    "context": {
+      "type": "string"
+    },
+    "curriculum_scope": {
+      "type": "string"
+    },
+    "correct_answer": {
+      "$ref": "#/$defs/answer_object"
+    },
+    "answer_type": {
+      "type": "string",
+      "enum": [
+        "numeric",
+        "formula",
+        "unit",
+        "vector",
+        "answer_set",
+        "conceptual"
+      ]
+    },
+    "givens": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "solution_trace": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/trace_step"
+      }
+    },
+    "allowed_operator_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "counterfactual_transforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "leakage_flags": {
+      "type": "object",
+      "required": [
+        "original_distractors_removed",
+        "human_response_dist_removed",
+        "seed_candidates_removed"
+      ],
+      "properties": {
+        "original_distractors_removed": {
+          "type": "boolean",
+          "const": true
+        },
+        "human_response_dist_removed": {
+          "type": "boolean",
+          "const": true
+        },
+        "seed_candidates_removed": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "answer_object": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "numeric",
+            "formula",
+            "unit",
+            "vector",
+            "answer_set",
+            "conceptual"
+          ]
+        },
+        "value": {},
+        "unit": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    },
+    "trace_step": {
+      "type": "object",
+      "required": [
+        "step_id",
+        "expr",
+        "operation"
+      ],
+      "properties": {
+        "step_id": {
+          "type": "integer"
+        },
+        "expr": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "result": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "operator_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "is_divergence": {
+          "type": "boolean"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "not": {
+    "anyOf": [
+      {
+        "required": [
+          "human_response_dist"
+        ]
+      },
+      {
+        "required": [
+          "distractors"
+        ]
+      },
+      {
+        "required": [
+          "original_options"
+        ]
+      },
+      {
+        "required": [
+          "seed_candidates"
+        ]
+      },
+      {
+        "required": [
+          "student_choice"
+        ]
+      }
+    ]
+  }
+}

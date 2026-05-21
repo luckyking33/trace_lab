@@ -1,0 +1,27 @@
+run_id: 20260515_mechanism_mvp_v1
+timestamp: 2026-05-15T00:00:00+09:00
+generation_mode: mechanism_only
+random_seed: 42
+config_path: configs/mechanism_only.yaml
+data_path: data/mechanism_toy_50.jsonl
+output_dir: outputs/20260515_mechanism_mvp_v1
+methods:
+  - zero_shot_llm
+  - cot_llm
+  - divert_style
+  - student_choice_prediction_style
+  - mechanism_invariant
+leakage_audit:
+  forbidden_key_scan_enabled: true
+  canary_scan_enabled: true
+metrics:
+  - incorrectness
+  - uniqueness
+  - executable_wrong_trace
+  - operator_match
+  - mev
+  - cei
+  - mds
+  - mdv
+  - leak_risk
+  - style_leak

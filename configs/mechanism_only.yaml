@@ -1,0 +1,74 @@
+generation_mode: mechanism_only
+fail_fast: true
+random_seed: 42
+
+allowed_input_fields:
+  - item_id
+  - question
+  - context
+  - subject
+  - domain
+  - correct_answer
+  - curriculum_scope
+  - answer_type
+  - givens
+  - constraints
+  - solution_trace
+  - allowed_operator_ids
+  - counterfactual_transforms
+  - leakage_flags
+
+forbidden_fields:
+  - human_response_dist
+  - distractors
+  - original_options
+  - original_distractors
+  - seed_candidates
+  - top_seed_candidates
+  - distractor_meta.seed_candidates
+  - item_stats.student_choice
+  - student_choice
+  - response_distribution
+  - choice_distribution
+
+canary_patterns:
+  - CANARY_DO_NOT_USE
+  - ORIGINAL_DISTRACTOR_CANARY
+
+required_leakage_audit_fields:
+  - used_human_response_dist
+  - used_seed_candidates
+  - used_original_distractors
+  - forbidden_key_scan_passed
+  - canary_scan_passed
+
+verifier:
+  numeric_tolerance: 1.0e-6
+  symbolic_simplify: true
+  unit_verifier: pint
+  fail_on_unparseable_answer: true
+
+metrics:
+  lambda_trace_edit: 0.20
+  alpha_mds: 0.20
+  beta_coverage: 0.10
+  gamma_redundancy: 0.10
+  delta_style_leak: 0.10
+
+slate_optimizer:
+  distractors_per_item: 3
+  hard_gates:
+    - incorrectness
+    - uniqueness
+    - executable_wrong_trace
+    - operator_match
+    - non_leakage
+  ranking_order:
+    - mdv_candidate
+    - cei
+    - mev
+    - mds_contribution
+    - operator_coverage_gain
+    - format_balance
+    - negative_ambiguity_risk
+    - negative_style_leak

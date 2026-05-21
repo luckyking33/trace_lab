@@ -1,0 +1,7 @@
+{
+  "dataset_id": "jsonl_cec551a6ef7d",
+  "record_index": 44,
+  "field_name": "question",
+  "source_hash": "b946687be8323400",
+  "translation_zh": "对 \\(x\\) 求导：\\(y=\\frac{(3x+1)^2+5}{3x+1}\\)。"
+}

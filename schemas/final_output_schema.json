@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinalItemOutput",
+  "type": "object",
+  "required": [
+    "item_id",
+    "method",
+    "pipeline_status",
+    "data_access_mode",
+    "candidates",
+    "slate_metrics",
+    "leakage_audit"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    },
+    "pipeline_status": {
+      "type": "string",
+      "enum": [
+        "all_formal_verified",
+        "partial_verified",
+        "failed"
+      ]
+    },
+    "data_access_mode": {
+      "type": "string",
+      "enum": [
+        "mechanism_only",
+        "human_seeded_proxy"
+      ]
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "slate_metrics": {
+      "type": "object"
+    },
+    "leakage_audit": {
+      "type": "object",
+      "required": [
+        "used_human_response_dist",
+        "used_seed_candidates",
+        "used_original_distractors",
+        "forbidden_key_scan_passed",
+        "canary_scan_passed"
+      ],
+      "properties": {
+        "used_human_response_dist": {
+          "type": "boolean"
+        },
+        "used_seed_candidates": {
+          "type": "boolean"
+        },
+        "used_original_distractors": {
+          "type": "boolean"
+        },
+        "forbidden_key_scan_passed": {
+          "type": "boolean"
+        },
+        "canary_scan_passed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

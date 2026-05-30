@@ -2,39 +2,89 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any
 
-from sympy import Add, Pow, simplify, sqrt, symbols
-from sympy.parsing.sympy_parser import parse_expr
+from sympy import Add, Dummy, E, Pow, expand, preorder_traversal, simplify, sqrt, symbols
+from sympy.parsing.sympy_parser import (
+    implicit_multiplication_application,
+    parse_expr,
+    standard_transformations,
+)
 
+from respondent_lab.io.normalization import strip_latex_wrappers
 from respondent_lab.mechanisms.base import ErrorOperator
 from respondent_lab.schemas.items import Item
 from respondent_lab.schemas.traces import SolutionTrace, TraceStep, WrongTrace
 from respondent_lab.schemas.verification import VerificationReport
 
 X = symbols("x")
+TRANSFORMATIONS = standard_transformations + (implicit_multiplication_application,)
+INLINE_MATH_RE = re.compile(r"\\\((.*?)\\\)|\\\[(.*?)\\\]|\$(.*?)\$")
 
 
 def _allowed(item: Item, operator_id: str) -> bool:
     return item.subject == "math" and operator_id in item.allowed_operator_ids
 
 
+def _normalize_math_text(text: str) -> str:
+    normalized = strip_latex_wrappers(str(text))
+    normalized = normalized.replace(r"\ln", "log")
+    normalized = normalized.replace(r"\sin", "sin")
+    normalized = normalized.replace(r"\cos", "cos")
+    normalized = normalized.replace(r"\tan", "tan")
+    normalized = normalized.replace(r"\exp", "exp")
+    normalized = normalized.replace("\\", "")
+    normalized = normalized.replace("ln(", "log(")
+    normalized = re.sub(r"\be\*\*", "E**", normalized)
+    normalized = normalized.strip().rstrip(".")
+    return normalized
+
+
+def _math_segments(text: str) -> list[str]:
+    segments: list[str] = []
+    for match in INLINE_MATH_RE.finditer(str(text)):
+        segment = next(group for group in match.groups() if group is not None)
+        segments.append(segment)
+    segments.append(str(text))
+    return segments
+
+
 def _strings_from_item(item: Item, trace: SolutionTrace) -> list[str]:
-    values: list[str] = [item.question]
+    raw_values: list[str] = [item.question]
     for entry in [*item.givens, *item.constraints]:
         for value in entry.values():
             if isinstance(value, str):
-                values.append(value)
+                raw_values.append(value)
     for step in trace.steps:
-        values.append(step.expr)
+        raw_values.append(step.expr)
         if step.result:
-            values.append(step.result)
+            raw_values.append(step.result)
+
+    values: list[str] = []
+    seen: set[str] = set()
+    for raw_value in raw_values:
+        for segment in _math_segments(raw_value):
+            normalized = _normalize_math_text(segment)
+            if normalized and normalized not in seen:
+                seen.add(normalized)
+                values.append(normalized)
     return values
 
 
-def _parse_sympy(text: str) -> Any:
-    return parse_expr(text.replace("^", "**"), evaluate=False)
+def _parse_sympy(text: str, *, evaluate: bool = True) -> Any:
+    return parse_expr(
+        _normalize_math_text(text),
+        local_dict={"E": E},
+        transformations=TRANSFORMATIONS,
+        evaluate=evaluate,
+    )
+
+
+def _equation_pairs(equation: str) -> list[tuple[str, str]]:
+    parts = [part.strip() for part in equation.split("=")]
+    return [(left, right) for left, right in zip(parts, parts[1:]) if left and right]
 
 
 def _equation_strings(item: Item, trace: SolutionTrace) -> list[str]:
@@ -42,7 +92,35 @@ def _equation_strings(item: Item, trace: SolutionTrace) -> list[str]:
 
 
 def _expression_strings(item: Item, trace: SolutionTrace) -> list[str]:
-    return [text for text in _strings_from_item(item, trace) if "=" not in text]
+    expressions: list[str] = []
+    seen: set[str] = set()
+    for text in _strings_from_item(item, trace):
+        candidates = [text]
+        if "=" in text:
+            candidates = []
+            for left, right in _equation_pairs(text):
+                candidates.extend([left, right])
+        for candidate in candidates:
+            candidate = candidate.strip()
+            if candidate and candidate not in seen:
+                seen.add(candidate)
+                expressions.append(candidate)
+    return expressions
+
+
+def _symbols_in(expr: Any) -> list[Any]:
+    return sorted(expr.free_symbols, key=lambda symbol: str(symbol))
+
+
+def _primary_symbol(expr: Any) -> Any | None:
+    free_symbols = _symbols_in(expr)
+    if X in free_symbols:
+        return X
+    return free_symbols[0] if free_symbols else None
+
+
+def _subexpressions(expr: Any) -> list[Any]:
+    return list(preorder_traversal(expr))
 
 
 def _answer_payload(item: Item, value: Any) -> dict[str, Any]:
@@ -90,89 +168,152 @@ def _wrong_trace(
 
 
 def _linear_sign_move_candidate(equation: str) -> Any | None:
-    left_text, right_text = equation.split("=", 1)
-    left = _parse_sympy(left_text)
-    right = _parse_sympy(right_text)
-    if right.has(X):
-        return None
-    coefficient = simplify(left.coeff(X))
-    if coefficient == 0:
-        return None
-    constant = simplify(left - coefficient * X)
-    if constant == 0 or constant.has(X):
-        return None
-    return simplify((right + constant) / coefficient)
+    for left_text, right_text in _equation_pairs(equation):
+        left = _parse_sympy(left_text)
+        right = _parse_sympy(right_text)
+        symbol = _primary_symbol(left - right)
+        if symbol is None:
+            continue
+        coefficient_left = simplify(left.coeff(symbol))
+        coefficient_right = simplify(right.coeff(symbol))
+        constant_left = simplify(left - coefficient_left * symbol)
+        constant_right = simplify(right - coefficient_right * symbol)
+
+        if coefficient_right == 0 and coefficient_left != 0 and constant_left != 0:
+            return simplify((right + constant_left) / coefficient_left)
+
+        if coefficient_right != 0 and coefficient_left != 0:
+            denominator = simplify(coefficient_left + coefficient_right)
+            if denominator != 0:
+                return simplify((constant_right - constant_left) / denominator)
+
+        if any(
+            part.has(symbol) and part.is_Add
+            for part in [left, right]
+        ):
+            return simplify(left + right)
+    return None
 
 
 def _distributive_drop_candidate(expression: str) -> Any | None:
-    expr = _parse_sympy(expression)
-    if not expr.is_Mul:
-        return None
-    add_factor = next((factor for factor in expr.args if isinstance(factor, Add)), None)
-    if add_factor is None:
-        return None
-    multiplier = simplify(expr / add_factor)
-    x_terms = [term for term in add_factor.args if term.has(X)]
-    constants = [term for term in add_factor.args if not term.has(X)]
-    if len(x_terms) != 1 or len(constants) != 1:
-        return None
-    return simplify(multiplier * x_terms[0] + constants[0])
+    expr = _parse_sympy(expression, evaluate=False)
+    for subexpr in _subexpressions(expr):
+        if not getattr(subexpr, "is_Mul", False):
+            continue
+        add_factor = next((factor for factor in subexpr.args if isinstance(factor, Add)), None)
+        power_add_factor = next(
+            (
+                factor
+                for factor in subexpr.args
+                if isinstance(factor, Pow)
+                and isinstance(factor.base, Add)
+                and factor.exp.is_integer
+                and factor.exp > 1
+            ),
+            None,
+        )
+        factor_to_drop = add_factor or power_add_factor
+        if factor_to_drop is None:
+            continue
+
+        if add_factor is not None:
+            multiplier = simplify(subexpr / add_factor)
+            add_terms = add_factor.as_ordered_terms()
+        else:
+            multiplier = simplify(subexpr / power_add_factor)
+            add_terms = expand(power_add_factor).as_ordered_terms()
+
+        first_symbolic_index = next(
+            (idx for idx, term in enumerate(add_terms) if term.free_symbols),
+            None,
+        )
+        if first_symbolic_index is None or len(add_terms) < 2:
+            continue
+        rewritten_terms = list(add_terms)
+        rewritten_terms[first_symbolic_index] = multiplier * rewritten_terms[first_symbolic_index]
+        wrong_subexpr = simplify(sum(rewritten_terms))
+        if subexpr == expr:
+            return wrong_subexpr
+        return simplify(expr.xreplace({subexpr: wrong_subexpr}))
+    return None
 
 
 def _illegal_cancel_candidate(expression: str) -> Any | None:
-    expr = _parse_sympy(expression)
-    if not expr.is_Mul:
-        return None
-    numerator = None
-    denominator = None
-    for factor in expr.args:
-        if isinstance(factor, Pow) and factor.exp == -1:
-            denominator = factor.base
-        else:
-            numerator = factor if numerator is None else numerator * factor
-    if numerator is None or denominator is None or not isinstance(numerator, Add):
-        return None
-    terms = list(numerator.args)
-    rewritten: list[Any] = []
-    divided = False
-    for term in terms:
-        if not divided and term.has(X):
-            rewritten.append(term / denominator)
-            divided = True
-        else:
-            rewritten.append(term)
-    if not divided:
-        return None
-    return simplify(sum(rewritten))
+    expr = _parse_sympy(expression, evaluate=False)
+    for subexpr in _subexpressions(expr):
+        if not getattr(subexpr, "is_Mul", False):
+            continue
+        numerator = None
+        denominator = None
+        for factor in subexpr.args:
+            if isinstance(factor, Pow) and factor.exp == -1:
+                denominator = factor.base
+            else:
+                numerator = factor if numerator is None else numerator * factor
+        if numerator is None or denominator is None or not isinstance(numerator, Add):
+            continue
+        numerator_symbols = set(numerator.free_symbols)
+        denominator_symbols = set(denominator.free_symbols)
+        if not numerator_symbols:
+            continue
+        terms = list(numerator.args)
+        rewritten: list[Any] = []
+        divided = False
+        for term in terms:
+            if not divided and (
+                term.free_symbols & denominator_symbols
+                or (not denominator_symbols and term.free_symbols)
+            ):
+                rewritten.append(term / denominator)
+                divided = True
+            else:
+                rewritten.append(term)
+        if not divided:
+            continue
+        wrong_subexpr = simplify(sum(rewritten))
+        if subexpr == expr:
+            return wrong_subexpr
+        return simplify(expr.xreplace({subexpr: wrong_subexpr}))
+    return None
 
 
 def _sqrt_sign_drop_candidate(equation: str) -> Any | None:
-    left_text, right_text = equation.split("=", 1)
-    left = _parse_sympy(left_text)
-    right = _parse_sympy(right_text)
-    if not isinstance(left, Pow) or left.exp != 2:
-        return None
-    base = left.base
-    coefficient = simplify(base.coeff(X))
-    if coefficient != 1:
-        return None
-    offset = simplify(-base.subs(X, 0))
-    if right.has(X):
-        return None
-    return simplify(offset + sqrt(right))
+    for left_text, right_text in _equation_pairs(equation):
+        left = _parse_sympy(left_text)
+        right = _parse_sympy(right_text)
+        if not isinstance(left, Pow) or left.exp != 2:
+            continue
+        symbol = _primary_symbol(left)
+        if symbol is None or right.has(symbol) or simplify(right) == 0:
+            continue
+        base = left.base
+        coefficient = simplify(base.coeff(symbol))
+        if coefficient == 0:
+            continue
+        offset = simplify(-base.subs(symbol, 0) / coefficient)
+        return simplify(offset + sqrt(right) / coefficient)
+    return None
 
 
 def _chain_rule_drop_candidate(expression: str) -> Any | None:
     expr = _parse_sympy(expression)
-    if not isinstance(expr, Pow):
-        return None
-    base = expr.base
-    exponent = expr.exp
-    if not base.has(X) or exponent.has(X):
-        return None
-    if simplify(base.diff(X)) == 1:
-        return None
-    return simplify(exponent * (base ** (exponent - 1)))
+    for subexpr in _subexpressions(expr):
+        if not subexpr.has(X):
+            continue
+        if isinstance(subexpr, Pow):
+            base = subexpr.base
+            exponent = subexpr.exp
+            if base.has(X) and not exponent.has(X) and simplify(base.diff(X)) not in (0, 1):
+                return simplify(exponent * (base ** (exponent - 1)))
+            if exponent.has(X) and simplify(exponent.diff(X)) not in (0, 1):
+                return simplify(subexpr)
+        if getattr(subexpr, "is_Function", False) and subexpr.args:
+            inner = subexpr.args[0]
+            if inner.has(X) and simplify(inner.diff(X)) not in (0, 1):
+                placeholder = Dummy("inner")
+                outer = subexpr.xreplace({inner: placeholder})
+                return simplify(outer.diff(placeholder).subs(placeholder, inner))
+    return None
 
 
 @dataclass(frozen=True)
